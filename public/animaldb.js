@@ -27,8 +27,6 @@ request.onupgradeneeded = function(e) {
       budgetObjectStore.add(num);
   };
 
-  window.addEventListener('online', UploadCalculation);
-
   function uploadCalculation() {
 
     const getAll = budgetObjectStore.getAll();
@@ -66,4 +64,6 @@ request.onupgradeneeded = function(e) {
 
     }
   }
-};
+}; 
+
+window.addEventListener('online', uploadCalculation);

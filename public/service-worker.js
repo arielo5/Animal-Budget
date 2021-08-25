@@ -1,15 +1,15 @@
-const FILES_TO_CATCH = [
+const FILES_TO_CACHE = [
     '/',
     '/index.html',
     '/manifest.json',
     '/animaldb.js',
     '/index.js',
-    '/style.css',
+    '/styles.css',
     '/icons/icon-512x512.png',
-    "/icons/icon_192x192.png",
-    "/icons/icon_128x128.png",
-    "/icons/icon_96x96.png",
-    "/icons/icon_72x72.png"
+    "/icons/icon-192x192.png",
+    "/icons/icon-128x128.png",
+    "/icons/icon-96x96.png",
+    "/icons/icon-72x72.png"
 ];
 
 const CACHE_NAME = 'AnimalBudget';
