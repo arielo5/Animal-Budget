@@ -1,10 +1,10 @@
 <h1 align="center">Animal-Budget👋</h1>
   
 <p align="center">
-    <img src="https://img.shields.io/github/repo-size/arielo5Animal-Budget" />
-    <img src="https://img.shields.io/github/languages/top/arielo5Animal-Budget"  />
-    <img src="https://img.shields.io/github/issues/arielo5Animal-Budget" />
-    <img src="https://img.shields.io/github/last-commit/arielo5Animal-Budget" >
+    <img src="https://img.shields.io/github/repo-size/arielo5/Animal-Budget" />
+    <img src="https://img.shields.io/github/languages/top/arielo5/Animal-Budget"  />
+    <img src="https://img.shields.io/github/issues/arielo5/Animal-Budget" />
+    <img src="https://img.shields.io/github/last-commit/arielo5/Animal-Budget" >
     <a href="https://github.com/arielo5"><img src="https://img.shields.io/github/followers/arielo5?style=social" target="_blank" /></a>
     
 </p>
