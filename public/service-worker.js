@@ -25,40 +25,44 @@ self.addEventListener("install", (event) => {
 });
 
 self.addEventListener('activate', (event) => {
-    const currentCaches = [CACHE_NAME, VERSION];
-    event.waitUntil(
+    
       caches
         .keys()
-        .then((cacheNames) => {
-          return cacheNames.filter((cacheName) => !currentCaches.includes(cacheName));
-        })
-        .then((cachesToDelete) => {
-          return Promise.all(
-            cachesToDelete.map((cacheToDelete) => {
-              return caches.delete(cacheToDelete);
-            })
-          );
+        .then(keyList => {
+          return Promise.all(keyList.map( key => {
+            if (key !== CACHE_NAME && key !== VERSION) {
+              return caches.delete(key);
+            }
+          }));
         })
         .then(() => self.clients.claim())
-    );
-  });
+      }
+  )
 
   self.addEventListener('fetch', (event) => {
-    if (event.request.url.startsWith(self.location.origin)) {
+    if (event.request.url.includes("/api/")) {
       event.respondWith(
-        caches.match(event.request).then((cachedResponse) => {
-          if (cachedResponse) {
-            return cachedResponse;
-          }
-  
-          return caches.open(VERSION).then((cache) => {
-            return fetch(event.request).then((response) => {
-              return cache.put(event.request, response.clone()).then(() => {
-                return response;
-              });
-            });
-          });
+        caches.open(VERSION).then(cache => {
+          return fetch(event.request).then(res => {
+          if (res.status === 200) {
+            cache.put(event.request.url, res.clone())
+            return res;
+          }})
+
+          .catch(error => {return cache.match(event.request)});
         })
+
+        .catch(error => console.log(error))
+      
       );
-    }
+        
+          return 
+        };
+
+        event.respondWith(
+        caches.match(event.request).then(function(res) {
+        return res || fetch(event.request);
+      })
+    );
+
   });
