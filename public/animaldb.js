@@ -3,14 +3,14 @@ const request = indexedDB.open('Animal_Budget', 1);
 let db;
 
 request.onupgradeneeded = function(e) {
-    const db = request.result;
-    db.createObjectStore('new_calculation', { autoIncrement: true });
+    const db = e.target.result;
+    db.createObjectStore('new_transaction', { autoIncrement: true });
   };
 
   request.onsuccess = function(e) {
       db = e.target.result;
       if (navigator.online) {
-          uploadCalculation();
+          uploadTransaction();
       }
   };
 
@@ -19,26 +19,28 @@ request.onupgradeneeded = function(e) {
   };
 
   function saveNumbers(num) {
-      const calculation = db.calculation(['new_calculation'],
+      const transaction = db.transaction(['new_transaction'],
       'readwrite');
 
-      const budgetObjectStore = calculation.objectStore("new_calculation");
+      const budgetObjectStore = transaction.objectStore("new_transaction");
 
       budgetObjectStore.add(num);
   };
 
-  function uploadCalculation() {
+  function uploadTransaction() {
+
+    console.log("Uploading!!");
+    
+    const transaction = db.transaction(['new_transaction'], 'readwrite');
+
+    const budgetObjectStore = transaction.objectStore('new_transaction');
 
     const getAll = budgetObjectStore.getAll();
-
-    const calculation = db.calculation(['new_calculation'], 'readwrite');
-
-    const budgetObjectStore = calculation.objectStore('new_calculation');
 
     getAll.onsuccess = function() {
 
         if (getAll.result.length > 0) {
-            fetch('/api/calculation', {
+            fetch('/api/transaction', {
               method: 'POST',
               body: JSON.stringify(getAll.result),
               headers: {
@@ -53,12 +55,11 @@ request.onupgradeneeded = function(e) {
                 
                 budgetObjectStore.clear();
       
-                const calculation = db.calculation(['new_calculation'], 'readwrite');
-      
+                const transaction = db.transaction(['new_transaction'], 'readwrite');      
 
-                const budgetObjectStore = calculation.objectStore('new_calculation');
+                const budgetObjectStore = transaction.objectStore('new_transaction');
                 
-                alert('All saved calculations has been submitted!');
+                alert('All Saved up to date!');
 
               }).catch(err => {console.log(err)});
 
@@ -66,4 +67,4 @@ request.onupgradeneeded = function(e) {
   }
 }; 
 
-window.addEventListener('online', uploadCalculation);
+window.addEventListener('online', uploadTransaction);

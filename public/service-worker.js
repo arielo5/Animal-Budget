@@ -1,21 +1,20 @@
 const FILES_TO_CACHE = [
     './',
-    '/index.html',
-    '/manifest.json',
-    '/animaldb.js',
-    '/index.js',
-    '/styles.css',
-    '/icons/icon-512x512.png',
-    "/icons/icon-192x192.png",
-    "/icons/icon-128x128.png",
-    "/icons/icon-96x96.png",
-    "/icons/icon-72x72.png"
+    './index.html',
+    './manifest.json',
+    './animaldb.js',
+    './index.js',
+    './styles.css',
+    './icons/icon-512x512.png',
+    "./icons/icon-192x192.png",
+    "./icons/icon-128x128.png",
+    "./icons/icon-96x96.png",
+    "./icons/icon-72x72.png"
 ];
 
 const CACHE_NAME = 'AnimalBudget';
 const VERSION = "aBud_v01"
 
-//INSTALL
 self.addEventListener("install", (event) => {
     event.waitUntil(
         caches
