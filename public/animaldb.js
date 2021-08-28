@@ -2,32 +2,7 @@ const request = indexedDB.open('Animal_Budget', 1);
 
 let db;
 
-request.onupgradeneeded = function(e) {
-    const db = e.target.result;
-    db.createObjectStore('new_transaction', { autoIncrement: true });
-  };
-
-  request.onsuccess = function(e) {
-      db = e.target.result;
-      if (navigator.online) {
-          uploadTransaction();
-      }
-  };
-
-  request.onerror = function(e) {
-      console.log(e.target.errorCode);
-  };
-
-  function saveNumbers(num) {
-      const transaction = db.transaction(['new_transaction'],
-      'readwrite');
-
-      const budgetObjectStore = transaction.objectStore("new_transaction");
-
-      budgetObjectStore.add(num);
-  };
-
-  function uploadTransaction() {
+function uploadTransaction() {
 
     console.log("Uploading!!");
     
@@ -66,5 +41,30 @@ request.onupgradeneeded = function(e) {
     }
   }
 }; 
+
+function saveNumbers(num) {
+      const transaction = db.transaction(['new_transaction'],
+      'readwrite');
+
+      const budgetObjectStore = transaction.objectStore("new_transaction");
+
+      budgetObjectStore.add(num);
+  };
+
+request.onupgradeneeded = function(e) {
+    const db = e.target.result;
+    db.createObjectStore('new_transaction', { autoIncrement: true });
+  };
+
+request.onsuccess = function(e) {
+      db = e.target.result;
+      if (navigator.online) {
+          uploadTransaction();
+      }
+  };
+
+request.onerror = function(e) {
+      console.log(e.target.errorCode);
+  };
 
 window.addEventListener('online', uploadTransaction);

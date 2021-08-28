@@ -25,7 +25,7 @@
   
 💻 Below is a screenshot of the application:
   
-![Animal-Budget](./)
+![Animal-Budget](./public/Images/Animal-Budget-Img.png)
 ## User Story
 
 ```
